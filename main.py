@@ -2,3 +2,4 @@
 
 Uso: python main.py consultas.json respostas.json
 """
+import catalogo
