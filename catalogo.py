@@ -5,14 +5,22 @@ Esta é a peça central do projeto: carrega o JSON uma vez, constrói os
 """
 class Catalogo:
     def __init__(self, caminho_json: str): 
-        self.caminho_json = caminho_json
+        with open(caminho_json, "r", encoding="utf-8") as arquivo:
+            dados = json.load(arquivo)
+        self.conteudos = dados["conteudos"]
+        self.usuaridos = dados["usuarios"]
+    
         fila = []
 
     # --- usuários e playlists ---
     def listar_usuarios(self) -> list[str]:
-        print()
+        nome = []
+        for user in self.usuarios:
+            nome.append(user["nome"])
+        return sorted(nomes)
 
     def buscar_usuario_por_nome(self, nome: str) -> str | None:
+        self.nome = nome
         
 
     def playlist_de(self, usuario_id: str) -> list[str] | None:
