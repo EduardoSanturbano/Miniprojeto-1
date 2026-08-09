@@ -1,6 +1,6 @@
 # Decisões de Modelagem
 
-Criei a class Catalogo;
+Criei a class Catalogo;  
 Modelei os métodos da fila de reprodução;
 Desenvolvi o cli usando match case e as funções de cada caso;
 Verifiquei os inputs durante o funcionamento do programa pra implementar no cli;
