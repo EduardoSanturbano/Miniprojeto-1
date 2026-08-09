@@ -2,10 +2,12 @@
 
 Uso: python cli.py catalogo_final.json
 """
-import catalogo
+from catalogo import Catalogo
+import sys
+catalogo = Catalogo(sys.argv[1])
 
 while True:
-    print("
+    print("""
         TrilhaSonora
         ============
         1. Listar todos os usuários
@@ -18,8 +20,8 @@ while True:
         8. Tocar próximo da fila
         9. Ver fila atual
         0. Sair
-        >"
-    )
+        >
+    """)
     opcao = int(input())
     match opcao:
         case 1:
