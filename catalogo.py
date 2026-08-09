@@ -63,53 +63,75 @@ class Catalogo:
                 conteudos_em_comum = conteudos_em_comum.intersection(playlist)
         return sorted(conteudos_em_comum)
                         
-
-
     # --- dados de um conteúdo ---
     def rating_de(self, conteudo_id: str) -> float | None:
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return float(conteudo.get("rating"))
-        return None
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        rating = conteudo.get("rating")
+        if rating is None:
+            return None
+        return float(rating)
 
     def duracao_total_de(self, conteudo_id: str) -> int | None:
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return conteudo["duracao_seg"]
-        return None
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        if conteudo["tipo"] == "musica":
+            return conteudo["duracao_seg"]
+        total_segundos = 0
+        for faixa in conteudo["faixas"]:
+            duracao = faixa["duracao_seg"]
+            if duracao is not None:
+                total_segundos += duracao
+        return total_segundos
+
 
     def generos_de(self, conteudo_id: str) -> list[str] | None:
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return conteudo["generos"]
-        return None
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        generos_achatados = self._achatar_generos(conteudo["generos"])
+        return sorted(generos_achatados)
 
     def plataformas_de(self, conteudo_id: str) -> list[str] | None:
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return conteudo["plataformas"]
-        return None
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        plataformas = conteudo.get("plataformas", [])
+        return sorted(plataformas)
 
     def data_adicionado_de(self, conteudo_id: str) -> str | None:
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return conteudo["data_adicionado"]
-        return None
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        data = conteudo["data_adicionado"]
+        if "/" in data:
+            dia, mes, ano = data.split("/")
+            return f"{ano}-{mes}-{dia}"
+        return data
 
-    def execucoes_de(self, conteudo_id: str) -> int | None: 
-        for conteudo in self.conteudos:
-            if conteudo["id"] == conteudo_id:
-                return conteudo["execucoes"]
-        return None
 
-    def conteudos_do_genero(self, genero: str) -> list[str]: 
+    def execucoes_de(self, conteudo_id: str) -> int | None:
+        conteudo = self._conteudo_por_id(conteudo_id)
+        if conteudo is None:
+            return None
+        engajamento = conteudo.get("engajamento")
+        if engajamento is None:
+            return None
+        execucoes = engajamento["execucoes"]
+        if isinstance(execucoes, str):
+            execucoes = execucoes.replace(",", "")
+        return int(execucoes)
+
+
+    def conteudos_do_genero(self, genero: str) -> list[str]:
+        ids_encontrados = []
         for conteudo in self.conteudos:
-            if conteudo["genero"] == genero:
-                titulo = conteudo["titulo"]
-                artista = conteudo["artista"]
-                tipo = conteudo["tipo"]
-               return f"{titulo}, de {artista} ({tipo})"
-        return None
+            generos_do_conteudo = self._achatar_generos(conteudo["generos"])
+            if genero in generos_do_conteudo:
+                ids_encontrados.append(conteudo["id"])
+        return sorted(ids_encontrados)
 
 
     # --- fila de reprodução ---

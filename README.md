@@ -1,6 +1,6 @@
 # Decisões de Modelagem
 
-Criei a class Catalogo:
+Criei a class Catalogo;
 Modelei os métodos da fila de reprodução;
 Desenvolvi o cli usando match case e as funções de cada caso;
 Verifiquei os inputs durante o funcionamento do programa pra implementar no cli;
@@ -8,8 +8,8 @@ Modelei os outros métodos adaptando para tratar possíveis sujeiras;
 Criei um método auxiliar: "descricao_conteudo" para transformar os ID's das músicas em nomes no cli;
 Ajustei o cli pra tratar erros;
 Criar a main foi difícil, mesmo já desenvolvendo a lógica no catálogo os comandos da main eram totalmente novos pra mim.
-Criei um método auxiliar: "_conteudo_por_id" para transformar os ID's das músicas em nomes no cli;
-Criei um método auxiliar: "_achatar_generos" para transformar os ID's das músicas em nomes no cli;
+Criei um método auxiliar: "_conteudo_por_id" para evitar repetição de busca nos métodos de dados;
+Criei um método auxiliar: "_achatar_generos" para desaninhar as listas de generos;
 Corrigi erros de sintaxe.
 
 # Conhecimentos consolidados
@@ -68,7 +68,9 @@ Muita coisa eu tava vendo pela primeira vez enquanto implementava o main, então
 
 Entender pra que esse "deque" servia não foi nada intuitivo, aplicar ele foi pior ainda.
 
-Eu não estava entendendo a função do gabarito_publico.json e do consultas.json até chegar no main.
+Desenvolver os métodos de dados de um conteúdo foi bem trabalhoso, pois a lógica era bastante complexa e nova.
+
+Demorei pra entender a função do gabarito_publico.json e do consultas.json.
 
 
 
