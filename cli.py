@@ -28,7 +28,10 @@ TrilhaSonora
         opcao = int(input())
         match opcao:
             case 1:
-                print(catalogo.listar_usuarios())
+                usuarios = catalogo.listar_usuarios()
+                print("\nUsuários cadastrados:")
+                for numero, nome in enumerate(usuarios, start=1):
+                    print(f"{numero}. {nome}")
             case 2:
                 nome = input("Nome do usuário: ").strip()
                 usuario_id = catalogo.buscar_usuario_por_nome(nome)
@@ -76,13 +79,20 @@ TrilhaSonora
                         for conteudo_id in ids_em_comum:
                             print(catalogo.descricao_conteudo(conteudo_id))
             case 5:
-                conteudo_id = input("ID do conteúdo (ex.: t000000): ")
-                catalogo.rating_de(conteudo_id)
-                catalogo.duracao_total_de(conteudo_id)
-                catalogo.generos_de(conteudo_id)
-                catalogo.plataformas_de(conteudo_id)
-                catalogo.data_adicionado_de(conteudo_id)
-                catalogo.execucoes_de(conteudo_id)
+                conteudo_id = input("ID do conteúdo (ex.: t000000): ").strip()
+                descricao = catalogo.descricao_conteudo(conteudo_id)
+                if descricao is None:
+                    print("Conteúdo não encontrado.")
+                else:
+                    print(f"\n{descricao}")
+                    print(f"Rating: {catalogo.rating_de(conteudo_id)}")
+                    print(f"Duração total: {catalogo.duracao_total_de(conteudo_id)} segundos")
+                    print(f"Gêneros: {', '.join(catalogo.generos_de(conteudo_id))}")
+                    print(f"Plataformas: {', '.join(catalogo.plataformas_de(conteudo_id))}")
+                    print(f"Data adicionado: {catalogo.data_adicionado_de(conteudo_id)}")
+                    execucoes = catalogo.execucoes_de(conteudo_id)
+                    if execucoes is not None:
+                        print(f"Execuções: {execucoes}")
             case 6:
                 genero = input("Gênero: (Ex.: Pop): ").strip()
                 conteudos = catalogo.conteudos_do_genero(genero)
