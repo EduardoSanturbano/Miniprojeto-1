@@ -4,6 +4,7 @@ Criei a class Catalogo;
 Modelei os métodos da fila de reprodução;
 Desenvolvi o cli usando match case e as funções de cada caso;
 Verifiquei os inputs durante o funcionamento do programa pra implementar no cli;
+
 Modelei os outros métodos adaptando para tratar possíveis sujeiras;
 Ajustei o cli pra tratar erros;
 Criar a main foi fácil, uma vez que eu já desenvolvi a lógica no catálogo e só precisei repassar parâmetros.

@@ -8,7 +8,7 @@ class Catalogo:
         with open(caminho_json, "r", encoding="utf-8") as arquivo:
             dados = json.load(arquivo)
         self.conteudos = dados["conteudos"]
-        self.usuaridos = dados["usuarios"]
+        self.usuarios = dados["usuarios"]
     
         fila = []
 
@@ -21,9 +21,18 @@ class Catalogo:
 
     def buscar_usuario_por_nome(self, nome: str) -> str | None:
         self.nome = nome
-        
+        nome_alvo = nome.lower()
+        for i in self.usuarios:
+            nome_dicionario = i["nome"].lower()
+            if nome_dicionario == nome_alvo:
+                return i["id"]
+        return None
 
     def playlist_de(self, usuario_id: str) -> list[str] | None:
+        for i in self.usuarios:
+            if i["id"] == usuario_id:
+                return i["playlist"]
+        return None
 
     def conteudo_na_posicao(self, usuario_id: str, posicao: int) -> str | None:
 
