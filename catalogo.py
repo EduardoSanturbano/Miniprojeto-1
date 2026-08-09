@@ -35,8 +35,28 @@ class Catalogo:
         return None
 
     def conteudo_na_posicao(self, usuario_id: str, posicao: int) -> str | None:
+        playlist = self.playlist_de(usuario_id)
+        if playlist is None:
+            return None
+        elif posicao < 0 or posicao >= len(playlist):
+            return None
+        else:
+            return playlist[posicao]
 
     def intersecao_playlists(self, usuario_ids: list[str]) -> list[str]:
+    if len(usuario_ids) == 0:
+        return []
+    conteudos_em_comum = None
+    for usuario_id in usuario_ids:
+        playlist = self.playlist_de(usuario_id)
+        if playlist is None:
+            return []
+        if conteudos_em_comum is None:
+            conteudos_em_comum = set(playlist)
+        else:
+            conteudos_em_comum = conteudos_em_comum.intersection(playlist)
+    return sorted(conteudos_em_comum)
+                        
 
 
     # --- dados de um conteúdo ---
@@ -61,3 +81,13 @@ class Catalogo:
             return None
     def fila_atual(self) -> list[str]:
         return lista
+
+    # métodos auxíliares:
+    def descricao_conteudo(self, conteudo_id: str) -> str | None:
+    for conteudo in self.conteudos:
+        if conteudo["id"] == conteudo_id:
+            titulo = conteudo["titulo"]
+            artista = conteudo["artista"]
+            tipo = conteudo["tipo"]
+            return f"{titulo}, de {artista} ({tipo})"
+    return None

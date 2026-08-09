@@ -6,6 +6,7 @@ Desenvolvi o cli usando match case e as funções de cada caso;
 Verifiquei os inputs durante o funcionamento do programa pra implementar no cli;
 
 Modelei os outros métodos adaptando para tratar possíveis sujeiras;
+Precisei criar um método auxiliar "descricao_conteudo" para transformar os ID's das músicas em nomes no cli;
 Ajustei o cli pra tratar erros;
 Criar a main foi fácil, uma vez que eu já desenvolvi a lógica no catálogo e só precisei repassar parâmetros.
 
@@ -14,6 +15,7 @@ Criar a main foi fácil, uma vez que eu já desenvolvi a lógica no catálogo e 
 Querido diário, o fato da classe Catalogo ter o C maiusculo me incomoda. O fato de João ter adiado o prazo me conforta.
 Querido diário, fiquei muito feliz quando vi que vocês deram a class Catalogo pronta... Eu estava desenvolvendo ela com base na lógica, mas isso vai me ajudar muito.
 Querido diário, eu não li em canto algum que era proibido escrever um diário.
+Querido diário, eu aprendi muito com essa atividade, percebi também a complexidade de desenvolver a lógica de programar multiarquivos pela primeira vez.
 
 # Conhecimentos consolidados
 
@@ -45,6 +47,9 @@ o JSON funciona como um dicionário com chaves
 self.conteudos = dados["conteudos"]
 self.usuaridos = dados["usuarios"]
 conteudos e usuarios são as chaves principais
+
+conjunto = set(lista) - cria uma cópia sem repetições de elementos
+a.intersection(b) - retorna a interseção entra a e b
 
 # Dificuldades encontradas
 
