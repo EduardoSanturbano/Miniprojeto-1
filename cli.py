@@ -34,7 +34,14 @@ while True:
         case 4:
             nomes = list(map(str, input("Nomes dos usuários separados por vírgula (ex.: Nicholas, Uchoa): ").split(", ")))
             usuario_ids = list(map(buscar_usuario_por_nome, nome))
-            catalogo.intersecao_playlists(usuario_ids)
+            ids_em_comum = catalogo.intersecao_playlists(usuarios_ids)
+            if len(ids_em_comum) == 0:
+                print("Não há conteúdos em comum.")
+            else:
+                print("Conteúdos em comum:")
+                for conteudo_id in ids_em_comum:
+                    descricao = catalogo.descricao_conteudo(conteudo_id)
+                    print(descricao)
         case 5:
             conteudo_id = input("ID do conteúdo (ex.: t000000): ")
             catalogo.rating_de(conteudo_id)

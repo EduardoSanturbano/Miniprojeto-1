@@ -8,7 +8,7 @@ Verifiquei os inputs durante o funcionamento do programa pra implementar no cli;
 Modelei os outros métodos adaptando para tratar possíveis sujeiras;
 Precisei criar um método auxiliar "descricao_conteudo" para transformar os ID's das músicas em nomes no cli;
 Ajustei o cli pra tratar erros;
-Criar a main foi fácil, uma vez que eu já desenvolvi a lógica no catálogo e só precisei repassar parâmetros.
+Criar a main foi difícil, mesmo já desenvolvendo a lógica no catálogo os comandos da main eram totalmente novos pra mim.
 
 # Diário
 
@@ -65,7 +65,11 @@ Fiquei confuso, pois não sabia como obter informações de arquivos para constr
 
 Demorei pra entender que meus dados foram organizados em "conteúdos" e "usuários" dentro dos JSON, eu estava sem saber como modelar os métodos por causa disso. Depois que você desenvolve o init e a primeira função fica tudo mais tranquilo.
 
-Eu não estava entendendo a função do gabarito_publico.json e do consultas.json até que 
+É mentira, implementar os outros métodos não foi nada tranquilo... e eu não sabia que precisava importar json e sys.
+
+Muita coisa eu tava vendo pela primeira vez aprendendo a implementar esse main, então eu ainda fiquei com um poudo de dúvidas sobre a lógica desenvolvida.
+
+Eu não estava entendendo a função do gabarito_publico.json e do consultas.json até chegar no main.
 
 
 

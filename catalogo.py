@@ -60,13 +60,51 @@ class Catalogo:
 
 
     # --- dados de um conteúdo ---
-    def rating_de(self, conteudo_id: str) -> float | None: ...
-    def duracao_total_de(self, conteudo_id: str) -> int | None: ...
-    def generos_de(self, conteudo_id: str) -> list[str] | None: ...
-    def plataformas_de(self, conteudo_id: str) -> list[str] | None: ...
-    def data_adicionado_de(self, conteudo_id: str) -> str | None: ...
-    def execucoes_de(self, conteudo_id: str) -> int | None: ...
-    def conteudos_do_genero(self, genero: str) -> list[str]: ...
+    def rating_de(self, conteudo_id: str) -> float | None:
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["rating"]
+        return None
+
+    def duracao_total_de(self, conteudo_id: str) -> int | None:
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["duracao_seg"]
+        return None
+
+    def generos_de(self, conteudo_id: str) -> list[str] | None:
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["generos"]
+        return None
+
+    def plataformas_de(self, conteudo_id: str) -> list[str] | None:
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["plataformas"]
+        return None
+
+    def data_adicionado_de(self, conteudo_id: str) -> str | None:
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["data_adicionado"]
+        return None
+
+    def execucoes_de(self, conteudo_id: str) -> int | None: 
+        for conteudo in self.conteudos:
+            if conteudo["id"] = conteudo_id:
+                return conteudo["execucoes"]
+        return None
+
+    def conteudos_do_genero(self, genero: str) -> list[str]: 
+        for conteudo in self.conteudos:
+            if conteudo["genero"] = genero:
+                titulo = conteudo["titulo"]
+                artista = conteudo["artista"]
+                tipo = conteudo["tipo"]
+               return f"{titulo}, de {artista} ({tipo})"
+        return None
+
 
     # --- fila de reprodução ---
     def enfileirar(self, conteudo_id: str) -> bool:
