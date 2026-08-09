@@ -4,10 +4,14 @@ Uso: python cli.py catalogo_final.json
 """
 from catalogo import Catalogo
 import sys
-catalogo = Catalogo(sys.argv[1])
+def main():
+    if len(sys.argv) != 2:
+        print("Uso: py cli.py catalogo_final.json")
+        return
+    catalogo = Catalogo(sys.argv[1])
 
-while True:
-    print("""
+    while True:
+        print("""
 TrilhaSonora
 ============
 1. Listar todos os usuários
@@ -20,49 +24,93 @@ TrilhaSonora
 8. Tocar próximo da fila
 9. Ver fila atual
 0. Sair
->
-    """)
-    opcao = int(input())
-    match opcao:
-        case 1:
-            print(catalogo.listar_usuarios())
-        case 2:
-            nome = input("Nome do usuário: ")
-            catalogo.playlist_de(catalogo.buscar_usuario_por_nome(nome))
-        case 3:
-            nome = input("Nome do usuário: ")
-            posicao = int(input("Posição: "))
-            catalogo.conteudo_na_posicao(catalogo.buscar_usuario_por_nome(nome), posicao)
-        case 4:
-            nomes = list(map(str, input("Nomes dos usuários separados por vírgula (ex.: Nicholas, Uchoa): ").split(", ")))
-            usuario_ids = list(map(catalogo.buscar_usuario_por_nome, nome))
-            ids_em_comum = catalogo.intersecao_playlists(usuario_ids)
-            if len(ids_em_comum) == 0:
-                print("Não há conteúdos em comum.")
-            else:
-                print("Conteúdos em comum:")
-                for conteudo_id in ids_em_comum:
-                    descricao = catalogo.descricao_conteudo(conteudo_id)
-                    print(descricao)
-        case 5:
-            conteudo_id = input("ID do conteúdo (ex.: t000000): ")
-            catalogo.rating_de(conteudo_id)
-            catalogo.duracao_total_de(conteudo_id)
-            catalogo.generos_de(conteudo_id)
-            catalogo.plataformas_de(conteudo_id)
-            catalogo.data_adicionado_de(conteudo_id)
-            catalogo.execucoes_de(conteudo_id)
-        case 6:
-            genero = input("Gênero (ex.: Pop): ")
-            catalogo.conteudos_do_genero(genero)
-        case 7:
-            conteudo_id = input("ID do conteúdo pra enfileirar (ex.: t000000): ")
-            catalogo.enfileirar(conteudo_id)
-        case 8:
-            catalogo.proximo()
-        case 9:
-            catalogo.fila_atual()
-        case 0:
-            break
-        case _:
-            print("Opção inválida")
+>""")
+        opcao = int(input())
+        match opcao:
+            case 1:
+                print(catalogo.listar_usuarios())
+            case 2:
+                nome = input("Nome do usuário: ").strip()
+                usuario_id = catalogo.buscar_usuario_por_nome(nome)
+
+                if usuario_id is None:
+                    print("Usuário não encontrado.")
+                else:
+                    playlist = catalogo.playlist_de(usuario_id)
+
+                    for conteudo_id in playlist:
+                        print(catalogo.descricao_conteudo(conteudo_id))
+            case 3:
+                nome = input("Nome do usuário: ").strip()
+                usuario_id = catalogo.buscar_usuario_por_nome(nome)
+                if usuario_id is None:
+                    print("Usuário não encontrado.")
+                else:
+                    try:
+                        posicao = int(input("Posição: "))
+                        conteudo_id = catalogo.conteudo_na_posicao(
+                            usuario_id,
+                            posicao - 1
+                        )
+                        if conteudo_id is None:
+                            print("Posição inválida.")
+                        else:
+                            print(catalogo.descricao_conteudo(conteudo_id))
+                    except ValueError:
+                        print("Digite uma posição numérica.")
+            case 4:
+                texto_nomes = input("Nomes separados por vírgula: ")
+                nomes = texto_nomes.split(",")
+                usuario_ids = []
+                for nome in nomes:
+                    usuario_id = catalogo.buscar_usuario_por_nome(nome.strip())
+                    if usuario_id is None:
+                        print(f"Usuário não encontrado: {nome.strip()}")
+                        break
+                    usuario_ids.append(usuario_id)
+                else:
+                    ids_em_comum = catalogo.intersecao_playlists(usuario_ids)
+                    if len(ids_em_comum) == 0:
+                        print("Não há conteúdos em comum.")
+                    else:
+                        for conteudo_id in ids_em_comum:
+                            print(catalogo.descricao_conteudo(conteudo_id))
+            case 5:
+                conteudo_id = input("ID do conteúdo (ex.: t000000): ")
+                catalogo.rating_de(conteudo_id)
+                catalogo.duracao_total_de(conteudo_id)
+                catalogo.generos_de(conteudo_id)
+                catalogo.plataformas_de(conteudo_id)
+                catalogo.data_adicionado_de(conteudo_id)
+                catalogo.execucoes_de(conteudo_id)
+            case 6:
+                genero = input("Gênero: (Ex.: Pop): ").strip()
+                conteudos = catalogo.conteudos_do_genero(genero)
+                if len(conteudos) == 0:
+                    print("Nenhum conteúdo encontrado.")
+                else:
+                    for conteudo_id in conteudos:
+                        print(catalogo.descricao_conteudo(conteudo_id))
+            case 7:
+                conteudo_id = input("ID do conteúdo pra enfileirar (ex.: t000000): ")
+                catalogo.enfileirar(conteudo_id)
+            case 8:
+                conteudo_id = catalogo.proximo()
+                if conteudo_id is None:
+                    print("A fila está vazia.")
+                else:
+                    print(catalogo.descricao_conteudo(conteudo_id))
+            case 9:
+                fila = catalogo.fila_atual()
+                if len(fila) == 0:
+                    print("A fila está vazia.")
+                else:
+                    for conteudo_id in fila:
+                        print(catalogo.descricao_conteudo(conteudo_id))
+            case 0:
+                break
+            case _:
+                print("Opção inválida")
+
+if __name__ == "__main__":
+    main()
