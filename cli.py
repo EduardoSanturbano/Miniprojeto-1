@@ -8,24 +8,24 @@ catalogo = Catalogo(sys.argv[1])
 
 while True:
     print("""
-        TrilhaSonora
-        ============
-        1. Listar todos os usuários
-        2. Ver playlist completa de um usuário
-        3. Conteúdo na posição N da playlist
-        4. Interseção de playlists (N usuários)
-        5. Dados de um conteúdo (rating, duração, gêneros, plataformas, data, execuções)
-        6. Conteúdos de um gênero
-        7. Enfileirar conteúdo na fila de reprodução
-        8. Tocar próximo da fila
-        9. Ver fila atual
-        0. Sair
-        >
+TrilhaSonora
+============
+1. Listar todos os usuários
+2. Ver playlist completa de um usuário
+3. Conteúdo na posição N da playlist
+4. Interseção de playlists (N usuários)
+5. Dados de um conteúdo (rating, duração, gêneros, plataformas, data, execuções)
+6. Conteúdos de um gênero
+7. Enfileirar conteúdo na fila de reprodução
+8. Tocar próximo da fila
+9. Ver fila atual
+0. Sair
+>
     """)
     opcao = int(input())
     match opcao:
         case 1:
-            catalogo.listar_usuarios()
+            print(catalogo.listar_usuarios())
         case 2:
             nome = input("Nome do usuário: ")
             catalogo.playlist_de(catalogo.buscar_usuario_por_nome(nome))
@@ -35,8 +35,8 @@ while True:
             catalogo.conteudo_na_posicao(catalogo.buscar_usuario_por_nome(nome), posicao)
         case 4:
             nomes = list(map(str, input("Nomes dos usuários separados por vírgula (ex.: Nicholas, Uchoa): ").split(", ")))
-            usuario_ids = list(map(buscar_usuario_por_nome, nome))
-            ids_em_comum = catalogo.intersecao_playlists(usuarios_ids)
+            usuario_ids = list(map(catalogo.buscar_usuario_por_nome, nome))
+            ids_em_comum = catalogo.intersecao_playlists(usuario_ids)
             if len(ids_em_comum) == 0:
                 print("Não há conteúdos em comum.")
             else:
